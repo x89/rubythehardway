@@ -19,5 +19,3 @@ while b < 4_000_000 do
 
   index += 1
 end
-
-puts count
