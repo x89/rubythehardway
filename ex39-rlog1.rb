@@ -28,6 +28,4 @@ puts "#{cities} is known as #{abbrev} and its best restaurant is #{food}"
 end
 
 # use the reject function to reject restaurants with letter "m"
-rejects = restaurant.reject {|a,b| b =~ /M.*/}
-
-puts rejects
+puts restaurant.reject {|a,b| b =~ /M.*/}
