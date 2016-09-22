@@ -22,9 +22,9 @@ puts "The best place to eat in Edinburgh is #{restaurant['EDI']}"
 puts "La Lanterna is in #{city['Glasgow']}"
 
 # mess around
-city.each do |cities,abbrev|
+city.each do |cities, abbrev|
   food = restaurant[abbrev]
-puts "#{cities} is known as #{abbrev} and its best restaurant is #{food}"
+  puts "#{cities} is known as #{abbrev} and its best restaurant is #{food}"
 end
 
 # use the reject function to reject restaurants with letter "m"
