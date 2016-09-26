@@ -22,5 +22,3 @@ def solution(digits)
   end
   return max
 end
-
-puts solution(123454321)
