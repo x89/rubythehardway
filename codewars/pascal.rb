@@ -15,7 +15,6 @@ class Integer
   end
 end
 
-puts "#{1.pascal_row}"
-puts "#{2.pascal_row}"
-puts "#{3.pascal_row}"
-puts "#{5.pascal_row}"
+(0..10).each do |n|
+  puts "#{n.pascal_row}"
+end
