@@ -8,7 +8,7 @@ class Integer
     row = Array.new [1]
     self.downto(1).each do |n|
       fraction = n/(self-(n-1)).to_f.round(10)  # 5/1, 4/2, 3/3, 2/4, 1/5…
-      puts "#{n}: #{n}/#{self-(n-1)} = #{fraction} => #{(fraction * tmp).round}"
+      #puts "#{n}: #{n}/#{self-(n-1)} = #{fraction} => #{(fraction * tmp).round}"
       row.push((tmp *= fraction).round)
     end
     return row.map{|e| e.to_i}
