@@ -21,13 +21,12 @@ def getUniquePrimeFactorsWithCount(n)
   return [] if n == 0
   return [1] if n == 1
   divisors = Prime.prime_division(n)
-  # The rest of this function rearranges the return result to match what the
-  # function expects. [[c,n1][c,n2]] where c is count, n is integer descending.
-  ret = Array.new
+  a1, a2 = Array.new, Array.new
   divisors.each do |a|
-    ret.push [a[1], a[0]]
+    a1.push a[0]
+    a2.push a[1]
   end
-  return ret.reverse
+  return [a1, a2]
 end
 
 def getUniquePrimeFactorsWithProducts(n)
@@ -51,12 +50,12 @@ class TestPrimeFactors < Test::Unit::TestCase
     assert_equal(getAllPrimeFactors(1), [1])
     assert_equal(getAllPrimeFactors(100), [2,2,5,5])
     assert_equal(getAllPrimeFactors(400), [2,2,2,2,5,5])
-    assert_equal(getAllPrimeFactors('str'), [])
   end
 
   def test_factors_with_count
     assert_equal(getUniquePrimeFactorsWithCount(100), [[2,5],[2,2]])
     assert_equal(getUniquePrimeFactorsWithCount(400), [[2,5],[4,2]])
+    assert_equal(getUniquePrimeFactorsWithCount(600), [[2,3,5],[3,1,2]])
   end
 
   def test_factors_with_products
