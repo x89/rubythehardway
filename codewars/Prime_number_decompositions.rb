@@ -18,7 +18,12 @@ def getUniquePrimeFactorsWithCount(n)
 end
 
 def getUniquePrimeFactorsWithProducts(n)
-  #your code here
+  factors_with_count = getUniquePrimeFactorsWithCount(n)
+  ret = Array.new
+  factors_with_count.reverse.each do |a|
+    ret.push a[1] ** a[0]
+  end
+  return ret
 end
 
 
