@@ -23,7 +23,7 @@ class ShoppingList
   end
 
   def add_item(item)
-    if @items.include?(item) then
+    if item.bogof and @items.include?(item) then
       count = @items.select{|i| i == item}.count
       if count % 2 == 0 then
         @total_price += item.price
