@@ -7,12 +7,24 @@ require 'prime'
 def getAllPrimeFactors(n)
   return [] if n == 0
   return [1] if n == 1
-  factors_with_count = getUniquePrimeFactorsWithCount(n)
   ret = Array.new
-  factors_with_count.reverse.each do |a|
-    a[0].downto(1).each do
-      ret.push a[1]
+  max = Math.sqrt(n).ceil + 1
+  i = 2
+  while i <= n do
+    unless Prime.prime? i then
+      i += 1
+      next
     end
+    if n % i == 0 then
+      ret.push i
+      n /= i
+      next
+    end
+    if n == i then
+      ret.push i
+      break
+    end
+    i += 1
   end
   return ret
 end
@@ -30,12 +42,10 @@ def getUniquePrimeFactorsWithCount(n)
 end
 
 def getUniquePrimeFactorsWithProducts(n)
-  factors_with_count = getUniquePrimeFactorsWithCount(n)
-  ret = Array.new
-  factors_with_count.reverse.each do |a|
-    ret.push a[1] ** a[0]
-  end
-  return ret
+  factors = getUniquePrimeFactorsWithCount(n)
+  base = factors[0]
+  exp = factors[1]
+  return base.zip(exp).map { |x,y| x**y }
 end
 
 
@@ -48,6 +58,8 @@ class TestPrimeFactors < Test::Unit::TestCase
   def test_all_prime_factors
     assert_equal(getAllPrimeFactors(0), [])
     assert_equal(getAllPrimeFactors(1), [1])
+    assert_equal([2, 5], getAllPrimeFactors(10))
+    assert_equal([101, 9901], getAllPrimeFactors(1000001))
     assert_equal(getAllPrimeFactors(100), [2,2,5,5])
     assert_equal(getAllPrimeFactors(400), [2,2,2,2,5,5])
   end
@@ -59,7 +71,8 @@ class TestPrimeFactors < Test::Unit::TestCase
   end
 
   def test_factors_with_products
-    assert_equal(getUniquePrimeFactorsWithProducts(100), [4,25])
-    assert_equal(getUniquePrimeFactorsWithProducts(400), [16,25])
+    assert_equal([2,5], getUniquePrimeFactorsWithProducts(10))
+    assert_equal([4,25], getUniquePrimeFactorsWithProducts(100))
+    assert_equal([16,25], getUniquePrimeFactorsWithProducts(400))
   end
 end
