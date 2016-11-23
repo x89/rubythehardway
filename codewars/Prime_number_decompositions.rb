@@ -4,8 +4,13 @@
 require 'test/unit'
 require 'prime'
 
+def positive_whole_int?(n)
+    return true if n.is_a?(Integer) && n > 0
+    return false
+end
+
 def getAllPrimeFactors(n)
-  return [] if n == 0
+  return [] unless positive_whole_int? n
   return [1] if n == 1
   ret = Array.new
   max = Math.sqrt(n).ceil + 1
@@ -30,7 +35,7 @@ def getAllPrimeFactors(n)
 end
 
 def getUniquePrimeFactorsWithCount(n)
-  return [[],[]] if n == 0
+  return [[],[]] unless positive_whole_int? n
   return [[1],[1]] if n == 1
   return [[2],[1]] if n == 2
   divisors = Prime.prime_division(n)
@@ -43,7 +48,7 @@ def getUniquePrimeFactorsWithCount(n)
 end
 
 def getUniquePrimeFactorsWithProducts(n)
-  return [] if n == 0
+  return [] unless positive_whole_int? n
   return [1] if n == 1
   return [2] if n == 2
   factors = getUniquePrimeFactorsWithCount(n)
@@ -90,5 +95,11 @@ class TestPrimeFactors < Test::Unit::TestCase
     assert_equal([], getUniquePrimeFactorsWithProducts(0))
     assert_equal([1], getUniquePrimeFactorsWithProducts(1))
     assert_equal([2], getUniquePrimeFactorsWithProducts(2))
+  end
+
+  def test_errors
+    assert_equal([], getAllPrimeFactors('foo'))
+    assert_equal([], getAllPrimeFactors(1.234))
+    assert_equal([], getAllPrimeFactors(-50))
   end
 end
