@@ -30,8 +30,9 @@ def getAllPrimeFactors(n)
 end
 
 def getUniquePrimeFactorsWithCount(n)
-  return [] if n == 0
-  return [1] if n == 1
+  return [[],[]] if n == 0
+  return [[1],[1]] if n == 1
+  return [[2],[1]] if n == 2
   divisors = Prime.prime_division(n)
   a1, a2 = Array.new, Array.new
   divisors.each do |a|
@@ -42,6 +43,9 @@ def getUniquePrimeFactorsWithCount(n)
 end
 
 def getUniquePrimeFactorsWithProducts(n)
+  return [] if n == 0
+  return [1] if n == 1
+  return [2] if n == 2
   factors = getUniquePrimeFactorsWithCount(n)
   base = factors[0]
   exp = factors[1]
@@ -74,5 +78,17 @@ class TestPrimeFactors < Test::Unit::TestCase
     assert_equal([2,5], getUniquePrimeFactorsWithProducts(10))
     assert_equal([4,25], getUniquePrimeFactorsWithProducts(100))
     assert_equal([16,25], getUniquePrimeFactorsWithProducts(400))
+  end
+
+  def test_edge_cases
+    assert_equal([], getAllPrimeFactors(0))
+    assert_equal([1], getAllPrimeFactors(1))
+    assert_equal([2], getAllPrimeFactors(2))
+    assert_equal([[],[]], getUniquePrimeFactorsWithCount(0))
+    assert_equal([[1],[1]], getUniquePrimeFactorsWithCount(1))
+    assert_equal([[2],[1]], getUniquePrimeFactorsWithCount(2))
+    assert_equal([], getUniquePrimeFactorsWithProducts(0))
+    assert_equal([1], getUniquePrimeFactorsWithProducts(1))
+    assert_equal([2], getUniquePrimeFactorsWithProducts(2))
   end
 end
