@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'prime'
 
 def getAllPrimeFactors(n)
   #your code here
@@ -13,17 +14,22 @@ def getUniquePrimeFactorsWithProducts(n)
 end
 
 class TestPrimeFactors < Test::Unit::TestCase
+  def test_prime
+    assert_equal(Prime.prime?(5), true)
+    assert_equal(Prime.first(2), [2, 3])
+  end
+
   def test_all_prime_factors
-    assert_equals(getAllPrimeFactors(0), [])
-    assert_equals(getAllPrimeFactors(1), [1])
-    assert_equals(getAllPrimeFactors(100), [2,2,5,5])
+    assert_equal(getAllPrimeFactors(0), [])
+    assert_equal(getAllPrimeFactors(1), [1])
+    assert_equal(getAllPrimeFactors(100), [2,2,5,5])
   end
 
   def test_factors_with_count
-    assert_equals(getUniquePrimeFactorsWithCount(100), [[2,5],[2,2]])
+    assert_equal(getUniquePrimeFactorsWithCount(100), [[2,5],[2,2]])
   end
 
   def test_factors_with_products
-    assert_equals(getUniquePrimeFactorsWithProducts(100), [4,25])
+    assert_equal(getUniquePrimeFactorsWithProducts(100), [4,25])
   end
 end
