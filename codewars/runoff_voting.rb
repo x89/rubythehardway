@@ -5,19 +5,11 @@ class Array
   def first_row
     self.map { |x| x[0] }
   end
-
-  def last_row
-    self.map { |x| x[-1] }
-  end
-
-  def nth_row(n)
-    self.map { |x| x[n] }
-  end
 end
 
 def least_voted_candidate(votes)
   '''Return the candidate with the least votes.'''
-  votes.first_row.min_by { |x| votes.first_row.count }
+  votes.first_row.min_by { |x| votes.first_row.count(x) }
 end
 
 def winner(votes)
