@@ -52,17 +52,12 @@ def runoff(votes)
     least_voted = least_voted_array(votes)
     return nil if least_voted[0] == nil
     votes.each_with_index do |vote,idx|
-      vote.each do |v|
-        h[v] += (first_row.count - vote.index(v))**50  # hax
-      end
-      old_vote = vote.dup
       least_voted.each do |v|
         vote.delete v
       end
     end
   end
   return h.max_by { |k,v| v }[0]
-  return w
 end
 
 voters = [[:dem, :ind, :rep],
