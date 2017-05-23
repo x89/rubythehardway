@@ -39,20 +39,22 @@ def runoff(votes)
   '''Takes an Array of Arrays in descending order of preference of candidates,
   returns the winning candidate via an AV style runnoff vote system (similar
   to Scottish council elections).'''
-  puts "#{least_voted_array(votes)}"
   while not w = winner(votes.first_row)
     first_row = votes.first_row
     least_voted = least_voted_array(votes)
+    return nil if least_voted[0] == nil
     puts "Found #{least_voted} in #{first_row}"
     votes.each do |vote|
       old_vote = vote.dup
       least_voted.each do |v|
         vote.delete v
+        #i = vote.index(v)
+        #vote[i] = (65 + rand(100)).chr.to_sym
       end
       puts "Deleted #{least_voted} from #{old_vote} to make #{vote}"
     end
   end
-  puts "#{votes}"
+  #puts "#{votes}"
   return w
 end
 
@@ -89,7 +91,7 @@ voters = [[:a, :c, :b, :d, :e],
           [:e, :b, :d, :a, :c],
           [:e, :a, :b, :c, :d],
           [:b, :c, :e, :a, :d]]
-Test.assert_equals(runoff(voters), :e)
+#Test.assert_equals(runoff(voters), :e)
 
 # Edge case for nil
 voters = [[:a, :c, :d, :e, :b],
@@ -97,4 +99,4 @@ voters = [[:a, :c, :d, :e, :b],
           [:d, :e, :c, :a, :b],
           [:c, :e, :d, :b, :a],
           [:b, :e, :a, :c, :d]]
-#Test.assert_equals(runoff(voters), nil)
+Test.assert_equals(runoff(voters), nil)
