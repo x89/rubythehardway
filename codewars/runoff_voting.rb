@@ -67,3 +67,11 @@ voters = [[:e, :c, :d, :b, :a],
           [:a, :d, :e, :b, :c],
           [:e, :d, :c, :a, :b]]
 Test.assert_equals(runoff(voters), :e)
+
+# Edge case
+voters = [[:a, :c, :b, :d, :e],
+          [:d, :c, :a, :b, :e],
+          [:e, :b, :d, :a, :c],
+          [:e, :a, :b, :c, :d],
+          [:b, :c, :e, :a, :d]]
+Test.assert_equals(runoff(voters), nil)
