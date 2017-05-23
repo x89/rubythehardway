@@ -12,6 +12,18 @@ def least_voted_candidate(votes)
   votes.first_row.min_by { |x| votes.first_row.count(x) }
 end
 
+def least_voted_array(votes)
+  '''Returns an array of equal least votes.'''
+  a = votes.first_row
+  h = Hash[a.map { |x| [x, a.count(x)] }]
+  min = h[least_voted_candidate(votes)]
+  ret = Array.new
+  h.each do |k,v|
+    ret.push(k) if v == min
+  end
+  ret
+end
+
 def winner(votes)
   '''Takes an array and returns who it is if we have one, else false.'''
   count = Hash[votes.map { |x| [x, 0] }]
@@ -27,17 +39,20 @@ def runoff(votes)
   '''Takes an Array of Arrays in descending order of preference of candidates,
   returns the winning candidate via an AV style runnoff vote system (similar
   to Scottish council elections).'''
+  puts "#{least_voted_array(votes)}"
   while not w = winner(votes.first_row)
     first_row = votes.first_row
-    least_voted = least_voted_candidate(votes).to_sym
+    least_voted = least_voted_array(votes)
     puts "Found #{least_voted} in #{first_row}"
     votes.each do |vote|
       old_vote = vote.dup
-      vote.delete least_voted
+      least_voted.each do |v|
+        vote.delete v
+      end
       puts "Deleted #{least_voted} from #{old_vote} to make #{vote}"
     end
   end
-  #puts "#{votes}"
+  puts "#{votes}"
   return w
 end
 
@@ -68,6 +83,7 @@ voters = [[:e, :c, :d, :b, :a],
           [:e, :d, :c, :a, :b]]
 Test.assert_equals(runoff(voters), :e)
 
+# Edge case for removing at the correct time
 voters = [[:a, :c, :b, :d, :e],
           [:d, :c, :a, :b, :e],
           [:e, :b, :d, :a, :c],
