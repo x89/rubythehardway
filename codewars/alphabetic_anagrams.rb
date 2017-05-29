@@ -27,8 +27,16 @@ def fast_mode(word)
   word_count = word.chars.count - 1
   repeat_index_1 = word_count.fac
   start_index = word.sorted_char_array.index(word.chars[0])  # MINCE
-  puts "First index: #{start_index * repeat_index_1}: "
+  first_index = start_index * repeat_index_1
+  puts "First index: #{first_index}"
+  count = first_index
+  word.chars.each_with_index do |c,idx|
+    index = word.sorted_char_array.index(c)
+    puts "\##{idx} / #{c}: #{index}"
+    count += (idx-1).fac
+  end
 
+  return count + 1
 end
 
 def listPosition(word)
@@ -39,12 +47,12 @@ end
 Test.describe('Anagram') do
   Test.it('Must return appropriate values for known inputs') do
     testValues = {
-      #'A' => 1,
+      'A' => 1,
       #'ABAB' => 2,
       #'AAAB' => 1,
-      'BACDE' => 24,
+      #'BACDE' => 24,
       #'BAAA' => 4,
-      #'QUESTION' => 24572,
+      'QUESTION' => 24572,
       #'BOOKKEEPER' => 10743
     }
     testValues.each do |key,value|
